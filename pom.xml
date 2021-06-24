@@ -9,8 +9,6 @@
     <packaging>pom</packaging>
     <version>1.0</version>
     <modules>
-        <module>flash-api</module>
-        <module>flash-core</module>
         <module>flash-generator</module>
         <module>eureka-server</module>
         <module>flash-message</module>

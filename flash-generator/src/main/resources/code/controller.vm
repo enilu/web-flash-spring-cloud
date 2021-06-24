@@ -1,6 +1,6 @@
 package ${packageName};
 
-import ${table.basePackageName}.api.controller.BaseController;
+import ${table.basePackageName}.cn.enilu.flash.manage.controller.BaseController;
 import ${table.EntityFullClassName};
 import ${table.ServiceFullClassName};
 

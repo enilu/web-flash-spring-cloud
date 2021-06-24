@@ -1,4 +1,4 @@
-package cn.enilu.flash.common.dao.log;
+package cn.enilu.flash.common.dao.system;
 
 import cn.enilu.flash.common.bean.entity.system.LoginLog;
 import cn.enilu.flash.common.dao.BaseRepository;

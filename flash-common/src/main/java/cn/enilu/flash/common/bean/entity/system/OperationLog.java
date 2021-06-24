@@ -1,5 +1,6 @@
 package cn.enilu.flash.common.bean.entity.system;
 
+import cn.enilu.flash.common.bean.state.LogType;
 import lombok.Data;
 import org.hibernate.annotations.Table;
 
@@ -22,7 +23,7 @@ public class OperationLog {
     private Long id;
     /**
      * 日志类型，
-     * @see cn.enilu.flash.bean.constant.state.LogType
+     * @see LogType
      */
     @Column(columnDefinition = "VARCHAR(32) COMMENT '日志类型'")
     private String logtype;

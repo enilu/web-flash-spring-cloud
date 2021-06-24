@@ -54,8 +54,8 @@ public class SwaggerConfig {
      */
     private ApiInfo frontApiInfo() {
         return new ApiInfoBuilder()
-                .title("web-flash api")
-                .description("快速构建web管理平台")
+                .title("flash-message api")
+                .description("消息服务")
                 .version("v1.0")
                 .license("MIT")
                 .contact(    //添加开发者的一些信息

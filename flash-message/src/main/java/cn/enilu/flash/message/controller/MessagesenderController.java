@@ -1,7 +1,7 @@
 package cn.enilu.flash.message.controller;
 
-import cn.enilu.flash.bean.vo.front.Rets;
 import cn.enilu.flash.common.aop.BussinessLog;
+import cn.enilu.flash.common.bean.vo.front.Rets;
 import cn.enilu.flash.common.factory.PageFactory;
 import cn.enilu.flash.common.bean.vo.query.SearchFilter;
 import cn.enilu.flash.common.utils.factory.Page;

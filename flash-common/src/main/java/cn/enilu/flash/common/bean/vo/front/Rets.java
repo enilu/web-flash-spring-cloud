@@ -1,4 +1,4 @@
-package cn.enilu.flash.bean.vo.front;
+package cn.enilu.flash.common.bean.vo.front;
 
 public class Rets {
 

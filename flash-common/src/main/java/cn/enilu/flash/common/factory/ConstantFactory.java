@@ -1,14 +1,15 @@
 package cn.enilu.flash.common.factory;
 
-import cn.enilu.flash.common.bean.entity.system.Dict;
+import cn.enilu.flash.common.bean.entity.system.*;
 import cn.enilu.flash.common.bean.state.ManagerStatus;
 import cn.enilu.flash.common.bean.vo.DictVo;
 import cn.enilu.flash.common.bean.vo.SpringContextHolder;
 import cn.enilu.flash.common.cache.CacheKey;
 import cn.enilu.flash.common.cache.impl.ConfigCache;
 import cn.enilu.flash.common.cache.impl.DictCache;
-import cn.enilu.flash.common.dao.system.DictRepository;
+import cn.enilu.flash.common.dao.system.*;
 import cn.enilu.flash.common.log.LogObjectHolder;
+import cn.enilu.flash.common.utils.Convert;
 import cn.enilu.flash.common.utils.StringUtil;
 import cn.enilu.flash.common.utils.cache.TimeCacheMap;
 import org.springframework.cache.annotation.CacheConfig;
@@ -30,10 +31,13 @@ import java.util.List;
 @CacheConfig
 public class ConstantFactory implements IConstantFactory {
     public static TimeCacheMap<String, String> cache = new TimeCacheMap<String, String>(3600, 2);
-
+    private RoleRepository roleRepository = SpringContextHolder.getBean(RoleRepository.class);
+    private DeptRepository deptRepository = SpringContextHolder.getBean(DeptRepository.class);
     private DictCache dictCache = SpringContextHolder.getBean(DictCache.class);
     private DictRepository dictRepository = SpringContextHolder.getBean(DictRepository.class);
-
+    private UserRepository userRepository = SpringContextHolder.getBean(UserRepository.class);
+    private MenuRepository menuRepository = SpringContextHolder.getBean(MenuRepository.class);
+    private NoticeRepository sysNoticeRepository = SpringContextHolder.getBean(NoticeRepository.class);
     private ConfigCache configCache = SpringContextHolder.getBean(ConfigCache.class);
 
     public static IConstantFactory me() {
@@ -49,6 +53,166 @@ public class ConstantFactory implements IConstantFactory {
 
     }
 
+    /**
+     * 根据用户id获取用户名称
+     *
+     * @author stylefeng
+     * @Date 2017/5/9 23:41
+     */
+    @Override
+    public String getUserNameById(Long userId) {
+        String val = get(CacheKey.SYS_USER_NAME + userId);
+        if (StringUtil.isNotEmpty(val)) {
+            return val;
+        }
+
+        User user = getUser(userId);
+        if (user != null) {
+            val = user.getName();
+            set(CacheKey.SYS_USER_NAME + userId, val);
+            return val;
+        }
+
+
+        return "--";
+    }
+
+    private User getUser(Long id) {
+        return  userRepository.getOne(id);
+    }
+
+    /**
+     * 根据用户id获取用户账号
+     *
+     * @author stylefeng
+     * @date 2017年5月16日21:55:371
+     */
+    @Override
+    public String getUserAccountById(Long userId) {
+        User user = getUser(userId);
+        if (user != null) {
+            return user.getAccount();
+        } else {
+            return "--";
+        }
+    }
+
+    /**
+     * 通过角色ids获取角色名称
+     */
+    @Override
+    public String getRoleName(String roleIds) {
+        String val = get(CacheKey.ROLES_NAME + roleIds);
+        if (StringUtil.isNotEmpty(val)) {
+            return val;
+        }
+        Integer[] roles = Convert.toIntArray(roleIds);
+        StringBuilder sb = new StringBuilder();
+        for (Integer role : roles) {
+            Role roleObj = getRole(Long.valueOf(role));
+            if (StringUtil.isNotNullOrEmpty(roleObj) && StringUtil.isNotEmpty(roleObj.getName())) {
+                sb.append(roleObj.getName()).append(",");
+            }
+        }
+        val = StringUtil.removeSuffix(sb.toString(), ",");
+        set(CacheKey.ROLES_NAME + roleIds, val);
+        return val;
+    }
+
+    /**
+     * 通过角色id获取角色名称
+     */
+    @Override
+    public String getSingleRoleName(Long roleId) {
+        if (0 == roleId) {
+            return "--";
+        }
+        Role roleObj = getRole(roleId);
+        if (StringUtil.isNotNullOrEmpty(roleObj) && StringUtil.isNotEmpty(roleObj.getName())) {
+            return roleObj.getName();
+        }
+        return "";
+    }
+
+    /**
+     * 通过角色id获取角色英文名称
+     */
+    @Override
+    public String getSingleRoleTip(Long roleId) {
+        if (0 == roleId) {
+            return "--";
+        }
+        Role roleObj = getRole(roleId);
+        if (StringUtil.isNotNullOrEmpty(roleObj) && StringUtil.isNotEmpty(roleObj.getName())) {
+            return roleObj.getTips();
+        }
+        return "";
+    }
+
+    /**
+     * 获取部门名称
+     */
+    @Override
+    public String getDeptName(Long deptId) {
+        if (deptId == null) {
+            return null;
+        }
+        String val = get(CacheKey.DEPT_NAME + deptId);
+        if (StringUtil.isNotEmpty(val)) {
+            return val;
+        }
+        Dept dept = getDept(deptId);
+        if (StringUtil.isNotNullOrEmpty(dept) && StringUtil.isNotEmpty(dept.getFullname())) {
+            val = dept.getFullname();
+            set(CacheKey.DEPT_NAME + deptId, val);
+            return val;
+        }
+        return "";
+    }
+
+    /**
+     * 获取菜单的名称们(多个)
+     */
+    @Override
+    public String getMenuNames(String menuIds) {
+        Integer[] menuArray = Convert.toIntArray(menuIds);
+        StringBuilder sb = new StringBuilder();
+        for (int menuId : menuArray) {
+            Menu menuObj = getMenu(Long.valueOf(menuId));
+            if (StringUtil.isNotNullOrEmpty(menuObj) && StringUtil.isNotEmpty(menuObj.getName())) {
+                sb.append(menuObj.getName()).append(",");
+            }
+        }
+        return StringUtil.removeSuffix(sb.toString(), ",");
+    }
+
+    /**
+     * 获取菜单名称
+     */
+    @Override
+    public String getMenuName(Long menuId) {
+
+        Menu menu = getMenu(menuId);
+        if (menu == null) {
+            return "";
+        } else {
+            return menu.getName();
+        }
+    }
+
+    /**
+     * 获取菜单名称通过编号
+     */
+    @Override
+    public String getMenuNameByCode(String code) {
+
+        Menu menu = menuRepository.findByCode(code);
+        if (menu == null) {
+            return "";
+        } else {
+            return menu.getName();
+        }
+    }
 
     @Override
     public List<DictVo> findByDictName(String dictName) {
@@ -79,6 +243,21 @@ public class ConstantFactory implements IConstantFactory {
         val = dictCache.getDict(dictId);
         set(CacheKey.DICT_NAME + dictId, val);
         return val;
+
+    }
+
+    /**
+     * 获取通知标题
+     */
+    @Override
+    public String getNoticeTitle(Long id) {
+
+        Notice notice = getNotice(id);
+        if (notice == null) {
+            return "";
+        } else {
+            return notice.getTitle();
+        }
 
     }
 
@@ -151,6 +330,39 @@ public class ConstantFactory implements IConstantFactory {
         return LogObjectHolder.me().get().toString();
     }
 
+    /**
+     * 获取子部门id
+     */
+    @Override
+    public List<Long> getSubDeptId(Long deptid) {
+
+        List<Dept> depts = this.deptRepository.findByPidsLike("%[" + deptid + "]%");
+
+        ArrayList<Long> deptids = new ArrayList<>();
+
+        if (depts != null && depts.size() > 0) {
+            for (Dept dept : depts) {
+                deptids.add(dept.getId());
+            }
+        }
+
+        return deptids;
+    }
+
+    /**
+     * 获取所有父部门id
+     */
+    @Override
+    public List<Integer> getParentDeptIds(Long deptid) {
+        Dept dept = getDept(deptid);
+        String pids = dept.getPids();
+        String[] split = pids.split(",");
+        ArrayList<Integer> parentDeptIds = new ArrayList<>();
+        for (String s : split) {
+            parentDeptIds.add(Integer.valueOf(StringUtil.removeSuffix(StringUtil.removePrefix(s, "["), "]")));
+        }
+        return parentDeptIds;
+    }
 
 
     @Override
@@ -167,6 +379,26 @@ public class ConstantFactory implements IConstantFactory {
         val = (String) configCache.get(cfgName);
         set(CacheKey.CFG + cfgName, val);
         return val;
+    }
+
+    @Override
+    public Role getRole(Long id) {
+        return roleRepository.getOne(id);
+    }
+
+    @Override
+    public Dept getDept(Long id) {
+        return deptRepository.getOne(id);
+    }
+
+    @Override
+    public Menu getMenu(Long id) {
+        return  menuRepository.getOne(id);
+    }
+
+    @Override
+    public Notice getNotice(Long id) {
+        return sysNoticeRepository.getOne(id);
     }
 
     @Override

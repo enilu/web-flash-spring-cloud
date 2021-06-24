@@ -1,5 +1,5 @@
 server:
-  port: 8012
+  port: 8011
 spring:
   profiles:
     active: db
@@ -8,8 +8,25 @@ spring:
       config: classpath:ehcache.xml
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
+    druid:
+      web-stat-filter:
+        enabled: true
+        url-pattern: /*
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /*
+        reset-enable: false
+        login-username: druiduser
+        login-password: druidpwd
+        allow: 127.0.0.1
   application:
-    name: flash-message
+    name: flash-manage
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
   mail:
     host: smtp.qq.com
     username: eniluzt@qq.com
@@ -39,5 +56,9 @@ management:
         include: info,health,heapdump,beans,trace
 info:
   app:
-    name: flash-message
+    name: flash-manage
     version: 1.0
+jwt:
+  token:
+    expire:
+      time: 30

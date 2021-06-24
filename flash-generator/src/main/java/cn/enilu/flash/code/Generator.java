@@ -81,7 +81,7 @@ public class Generator {
 
         String module = "test";
         String basePackageName = "cn.enilu.flash";
-        String controllerPackageName = "api.controller." + module;
+        String controllerPackageName = "cn.enilu.flash.manage.controller." + module;
         String servicePackageName = "service." + module;
         String repositoryPackageName = "dao." + module;
         String modelPackageName = "bean.entity." + module;
@@ -143,7 +143,7 @@ public class Generator {
             if (commandLine.hasOption("mod")) {
                 module = commandLine.getOptionValue("mod");
                 module = module.split("\\.")[module.split("\\.").length - 1];
-                controllerPackageName = "api.controller." + module;
+                controllerPackageName = "cn.enilu.flash.manage.controller." + module;
                 servicePackageName = "service." + module;
                 repositoryPackageName = "dao." + module;
                 modelPackageName = "bean.entity." + module;
