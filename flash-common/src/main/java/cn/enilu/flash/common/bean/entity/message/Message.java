@@ -1,4 +1,4 @@
-package cn.enilu.flash.message.bean.entity;
+package cn.enilu.flash.common.bean.entity.message;
 
 import cn.enilu.flash.common.bean.entity.BaseEntity;
 import lombok.Data;

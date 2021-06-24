@@ -1,11 +1,11 @@
 package cn.enilu.flash.message.controller;
 
 import cn.enilu.flash.common.aop.BussinessLog;
+import cn.enilu.flash.common.bean.entity.message.MessageSender;
 import cn.enilu.flash.common.bean.vo.front.Rets;
 import cn.enilu.flash.common.factory.PageFactory;
 import cn.enilu.flash.common.bean.vo.query.SearchFilter;
 import cn.enilu.flash.common.utils.factory.Page;
-import cn.enilu.flash.message.bean.entity.MessageSender;
 import cn.enilu.flash.message.service.MessagesenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

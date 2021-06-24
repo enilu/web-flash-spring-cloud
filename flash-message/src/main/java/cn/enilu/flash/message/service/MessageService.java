@@ -1,12 +1,12 @@
 package cn.enilu.flash.message.service;
 
 
+import cn.enilu.flash.common.bean.entity.message.Message;
+import cn.enilu.flash.common.bean.entity.message.MessageSender;
+import cn.enilu.flash.common.bean.entity.message.MessageTemplate;
 import cn.enilu.flash.common.bean.vo.SpringContextHolder;
 import cn.enilu.flash.common.service.BaseService;
 import cn.enilu.flash.common.utils.StringUtil;
-import cn.enilu.flash.message.bean.entity.Message;
-import cn.enilu.flash.message.bean.entity.MessageSender;
-import cn.enilu.flash.message.bean.entity.MessageTemplate;
 import cn.enilu.flash.message.dao.MessageRepository;
 import cn.enilu.flash.message.dao.MessagesenderRepository;
 import cn.enilu.flash.message.dao.MessagetemplateRepository;
