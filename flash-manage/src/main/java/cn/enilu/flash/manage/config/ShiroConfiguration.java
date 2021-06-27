@@ -24,7 +24,7 @@ import java.util.Map;
  * @date ：Created in 2019/7/30 23:08
  */
 @Configuration
-public class ShiroConfig {
+public class ShiroConfiguration {
     @Bean("securityManager")
     public DefaultWebSecurityManager getManager(ApiRealm realm) {
         DefaultWebSecurityManager manager = new DefaultWebSecurityManager();

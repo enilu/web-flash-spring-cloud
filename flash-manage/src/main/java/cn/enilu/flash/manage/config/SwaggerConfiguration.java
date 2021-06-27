@@ -27,7 +27,7 @@ import java.util.List;
 
 @EnableOpenApi
 @Configuration
-public class SwaggerConfig {
+public class SwaggerConfiguration {
 
 
     @Bean

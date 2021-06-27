@@ -3,7 +3,6 @@ package cn.enilu.flash.manage.controller.message;
 import cn.enilu.flash.common.aop.BussinessLog;
 import cn.enilu.flash.common.bean.entity.message.MessageSender;
 import cn.enilu.flash.common.bean.vo.front.Rets;
-import cn.enilu.flash.common.bean.vo.query.SearchFilter;
 import cn.enilu.flash.common.utils.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,11 +21,11 @@ public class MessagesenderController {
     @GetMapping(value = "/list")
     public Object list(@RequestParam(required = false) String name,
                        @RequestParam(required = false) String className) {
-        Map<String,Object> params = Maps.newHashMap(
-                "name",name,
-                "className",className
+        Map<String, Object> params = Maps.newHashMap(
+                "name", name,
+                "className", className
         );
-        Object ret = restTemplate.getForObject("http://flash-message/message/sender/list?name={name}&className={className}", Object.class,params);
+        Object ret = restTemplate.getForObject("http://flash-message/message/sender/list?name={name}&className={className}", Object.class, params);
         return ret;
     }
 

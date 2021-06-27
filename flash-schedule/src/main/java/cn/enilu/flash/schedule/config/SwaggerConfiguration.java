@@ -1,4 +1,4 @@
-package cn.enilu.flash.message.config;
+package cn.enilu.flash.schedule.config;
 
 import io.swagger.models.auth.In;
 import org.springframework.context.annotation.Bean;
@@ -27,7 +27,7 @@ import java.util.List;
 
 @EnableOpenApi
 @Configuration
-public class SwaggerConfig {
+public class SwaggerConfiguration {
 
 
     @Bean
@@ -43,7 +43,7 @@ public class SwaggerConfig {
                 .select()
 
                 //指定扫描的包
-                .apis(RequestHandlerSelectors.basePackage("cn.enilu.flash.message.controller"))
+                .apis(RequestHandlerSelectors.basePackage("cn.enilu.flash.schedule.controller"))
                 .paths(PathSelectors.any())
                 .build()
                 .securitySchemes(headers);
@@ -54,8 +54,8 @@ public class SwaggerConfig {
      */
     private ApiInfo frontApiInfo() {
         return new ApiInfoBuilder()
-                .title("flash-message api")
-                .description("消息服务")
+                .title("flash-schedule api")
+                .description("定时任务")
                 .version("v1.0")
                 .license("MIT")
                 .contact(    //添加开发者的一些信息
