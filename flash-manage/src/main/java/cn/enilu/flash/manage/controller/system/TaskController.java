@@ -63,7 +63,7 @@ public class TaskController extends BaseController {
     @BussinessLog(value = "删除定时任务", key = "taskId")
     @RequiresPermissions(value = {Permission.TASK_DEL})
     public Object delete(@RequestParam Long id) {
-        restTemplate.delete("http://flash-schdule/task", id);
+        restTemplate.delete("http://flash-schdule/task?id={id}", id);
         return Rets.success();
     }
 

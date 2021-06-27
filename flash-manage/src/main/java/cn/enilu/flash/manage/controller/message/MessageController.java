@@ -1,17 +1,12 @@
-package cn.enilu.flash.message.controller;
+package cn.enilu.flash.manage.controller.message;
 
 import cn.enilu.flash.common.aop.BussinessLog;
 import cn.enilu.flash.common.bean.entity.message.Message;
 import cn.enilu.flash.common.bean.vo.front.Rets;
-import cn.enilu.flash.common.factory.PageFactory;
-import cn.enilu.flash.common.bean.vo.query.SearchFilter;
-import cn.enilu.flash.common.utils.DateUtil;
-import cn.enilu.flash.common.utils.JsonUtil;
-import cn.enilu.flash.common.utils.StringUtil;
-import cn.enilu.flash.common.utils.factory.Page;
-import cn.enilu.flash.message.service.MessageService;
+import cn.enilu.flash.common.utils.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -28,38 +23,43 @@ import java.util.Map;
 @RequestMapping("/message")
 public class MessageController {
     @Autowired
-    private MessageService messageService;
-
+    private RestTemplate restTemplate;
     @GetMapping(value = "/list")
-    public Object list(@RequestParam(required = false) String tplCode,
+    public Object list(@RequestParam(required = false) Integer limit,
+                       @RequestParam(required = false) Integer page,
+                       @RequestParam(required = false) String tplCode,
                        @RequestParam(required = false) String startDate,
                        @RequestParam(required = false) String endDate) {
-        Page<Message> page = new PageFactory<Message>().defaultPage();
-        page.addFilter("tplCode", tplCode);
-        if(StringUtil.isNotEmpty(startDate)) {
-            page.addFilter("createTime", SearchFilter.Operator.GTE, DateUtil.parse(startDate, "yyyyMMddHHmmss"));
-        }
-        if(StringUtil.isNotEmpty(endDate)) {
-            page.addFilter("createTime", SearchFilter.Operator.LTE, DateUtil.parse(endDate, "yyyyMMddHHmmss"));
-        }
-        page = messageService.queryPage(page);
-        page.setRecords(page.getRecords());
-        return Rets.success(page);
+
+        Map<String, Object> params = Maps.newHashMap(
+                "limit",limit,
+                "page",page,
+                "tplCode", tplCode,
+                "startDate", startDate,
+                "endDate", endDate
+        );
+        Object ret = restTemplate.getForObject("http://flash-message/message/list?limit={limit}&page={page}&tplCode={tplCode}&startDate={startDate}&endDate={endDate}", Object.class, params);
+        return ret;
     }
 
-    @DeleteMapping("/clear")
+    @DeleteMapping
     @BussinessLog(value = "清空所有历史消息")
     public Object clear() {
-        messageService.clear();
+        restTemplate.delete("http://flash-message/message/clear");
         return Rets.success();
     }
 
     @PostMapping("/testSender")
     @BussinessLog(value = "发送测试短信")
     public Object testSend(@RequestParam String tplCode,@RequestParam String receiver,@RequestParam String params) {
-        LinkedHashMap map = JsonUtil.fromJson(LinkedHashMap.class,params);
-        messageService.sendSms(tplCode,receiver,map);
-        return Rets.success();
+        Map<String, Object> paramsMap = Maps.newHashMap(
+
+                "tplCode", tplCode,
+                "receiver", receiver,
+                "params", params
+        );
+        Object ret = restTemplate.getForObject("http://flash-message/message/list?tplCode={tplCode}&receiver={receiver}&params={params}", Object.class, paramsMap);
+        return ret;
     }
     @GetMapping("/sendTplEmail")
     public Object sendTplEmail(String tplCode,  String to, String cc, String title, Map<String, Object> dataMap){

@@ -2,6 +2,7 @@ package cn.enilu.flash.manage.controller.message;
 
 import cn.enilu.flash.common.aop.BussinessLog;
 import cn.enilu.flash.common.bean.entity.message.MessageSender;
+import cn.enilu.flash.common.bean.vo.front.Ret;
 import cn.enilu.flash.common.bean.vo.front.Rets;
 import cn.enilu.flash.common.utils.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,33 +20,37 @@ public class MessagesenderController {
     private RestTemplate restTemplate;
 
     @GetMapping(value = "/list")
-    public Object list(@RequestParam(required = false) String name,
+    public Object list(@RequestParam(required = false) Integer limit,
+                       @RequestParam(required = false) Integer page,
+                       @RequestParam(required = false) String name,
                        @RequestParam(required = false) String className) {
         Map<String, Object> params = Maps.newHashMap(
+                "limit",limit,
+                "page",page,
                 "name", name,
                 "className", className
         );
-        Object ret = restTemplate.getForObject("http://flash-message/message/sender/list?name={name}&className={className}", Object.class, params);
-        return ret;
+        return restTemplate.getForObject("http://flash-message/message/sender/list?limit={limit}&page={page}&name={name}&className={className}", Ret.class, params);
+
     }
 
     @GetMapping(value = "/queryAll")
     public Object queryAll() {
-        return restTemplate.getForObject("http://flash-message/message/sender/queryAll", Object.class);
+        return restTemplate.getForObject("http://flash-message/message/sender/queryAll", Ret.class);
     }
 
     @PostMapping
     @BussinessLog(value = "编辑消息发送者", key = "name")
     public Object save(@ModelAttribute @Valid MessageSender messageSender) {
-        Object ret = restTemplate.postForObject("http://flash-message/message/sender", messageSender, Object.class);
-        return ret;
+        return restTemplate.postForObject("http://flash-message/message/sender", messageSender, Ret.class);
+
     }
 
     //
     @DeleteMapping
     @BussinessLog(value = "删除消息发送者", key = "id")
     public Object remove(Long id) {
-        restTemplate.delete("http://flash-message/message/sender", id);
+        restTemplate.delete("http://flash-message/message/sender?id={id}", id);
         return Rets.success();
 
     }

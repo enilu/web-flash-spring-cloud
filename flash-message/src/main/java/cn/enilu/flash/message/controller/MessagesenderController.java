@@ -36,7 +36,7 @@ public class MessagesenderController {
 
     @PostMapping
     @BussinessLog(value = "编辑消息发送者", key = "name")
-    public Object save(@ModelAttribute @Valid MessageSender messageSender) {
+    public Object save(@RequestBody @Valid MessageSender messageSender) {
         if(messageSender.getId()!=null){
             MessageSender old = messagesenderService.get(messageSender.getId());
             old.setName(messageSender.getName());

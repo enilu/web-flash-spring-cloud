@@ -68,7 +68,7 @@ export default {
       this.listQuery.startDate = undefined
       this.listQuery.endDate = undefined
       this.rangeDate = ''
-      this.tplCode = ''
+      this.listQuery.tplCode = ''
       this.listQuery.page = 1
       this.fetchData()
     },

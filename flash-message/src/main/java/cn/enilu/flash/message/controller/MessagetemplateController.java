@@ -36,7 +36,7 @@ public class MessagetemplateController {
 
     @PostMapping
     @BussinessLog(value = "编辑消息模板", key = "name")
-    public Object save(@ModelAttribute @Valid MessageTemplate messageTemplate) {
+    public Object save(@RequestBody @Valid MessageTemplate messageTemplate) {
         if (messageTemplate.getId() == null) {
 
             MessageTemplate old = messagetemplateService.get(SearchFilter.build("code",messageTemplate.getCode()));
