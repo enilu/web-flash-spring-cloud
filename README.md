@@ -2,15 +2,23 @@
 - 参考：https://github.com/JourWon/springcloud-learning
 - 参考 aisspringcloud项目 
 
-
+## 模块
+- eureka-server 服务注册中心
+- flash-common 基础公共模块
+- flash-generator 代码生成模块
+- flash-manage 后台管理api
+- flash-message 消息服务
+- flash-schedule 定时任务
+- flash-vue-admin 后台管理界面
+- flash-vue-h5 前端界面
 ## 使用
 - 克隆本项目
 - 导入idea或者eclipse
 - 创建数据库：web-flash
      ```sql
-        CREATE DATABASE IF NOT EXISTS webflash DEFAULT CHARSET utf8 COLLATE utf8_general_ci; 
+        CREATE DATABASE IF NOT EXISTS webflashspringcloud DEFAULT CHARSET utf8 COLLATE utf8_general_ci; 
         CREATE USER 'webflash'@'%' IDENTIFIED BY 'webflash190602@ABC';
-        GRANT ALL privileges ON webflash.* TO 'webflash'@'%';
+        GRANT ALL privileges ON webflash.* TO 'webflashspringcloud'@'%';
         flush privileges;
         ```    
 - 在开发环境中配置了系统启动后自动创建数据库和初始化数据，所以不需要开发人员手动初始化数据库
