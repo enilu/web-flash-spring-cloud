@@ -15,6 +15,7 @@
         <module>flash-schedule</module>
         <module>flash-manage</module>
         <module>flash-common</module>
+        <module>flash-config</module>
     </modules>
 
     <properties>
