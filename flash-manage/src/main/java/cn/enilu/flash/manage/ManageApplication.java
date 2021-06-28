@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -37,11 +36,6 @@ import java.net.UnknownHostException;
 @EnableOpenApi
 public class ManageApplication extends SpringBootServletInitializer {
     private static Logger logger = LoggerFactory.getLogger(ManageApplication.class);
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(ManageApplication.class);
-    }
-
     @Bean
     @LoadBalanced
     public RestTemplate restTemplate(){

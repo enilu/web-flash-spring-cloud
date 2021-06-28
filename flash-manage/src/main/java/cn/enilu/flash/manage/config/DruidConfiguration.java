@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -24,6 +25,7 @@ import javax.sql.DataSource;
  */
 
 @Configuration
+@RefreshScope
 
 public class DruidConfiguration {
     @Autowired
@@ -57,7 +59,9 @@ public class DruidConfiguration {
     }
 
     @Bean
-    @ConfigurationProperties(prefix = "spring.datasource.druid")
+    @RefreshScope
+
+    @ConfigurationProperties(prefix = "spring.datasource")
     public DataSource druid(){
         return new DruidDataSource();
     }
