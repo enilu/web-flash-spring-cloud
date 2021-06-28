@@ -7,11 +7,11 @@ spring:
     ehcache:
       config: classpath:ehcache.xml
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/webflash?useUnicode=true&characterEncoding=UTF8&useSSL=false
-    username: webflash
-    password: webflash190602@ABC
     druid:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://127.0.0.1:3306/webflash?useUnicode=true&characterEncoding=UTF8&useSSL=false
+      username: webflash
+      password: webflash190602@ABC
       web-stat-filter:
         enabled: true
         url-pattern: /*
