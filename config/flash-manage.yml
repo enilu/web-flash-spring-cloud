@@ -3,8 +3,6 @@ server:
 spring:
   application:
     name: flash-manage
-  profiles:
-    active: db
   cache:
     ehcache:
       config: classpath:ehcache.xml
