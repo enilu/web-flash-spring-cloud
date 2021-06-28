@@ -5,6 +5,7 @@
 ## 模块
 - eureka-server 服务注册中心
 - flash-common 基础公共模块
+- flash-config-server 配置中心（基于git服务）
 - flash-generator 代码生成模块
 - flash-manage 后台管理api
 - flash-message 消息服务
