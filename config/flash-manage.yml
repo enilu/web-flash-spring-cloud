@@ -27,6 +27,8 @@ spring:
     time-zone: GMT+8
   jpa:
     show-sql: true
+    hibernate:
+      ddl-auto: create
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
   mail:
     host: smtp.qq.com
