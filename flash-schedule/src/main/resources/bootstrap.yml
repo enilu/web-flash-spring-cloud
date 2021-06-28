@@ -1,7 +1,7 @@
 spring:
   cloud:
     config:
-      name: flash-message
+      name: flash-schedule
       label: master
       discovery:
         enabled: true

@@ -3,9 +3,9 @@ package cn.enilu.flash.message.service;
 
 import cn.enilu.flash.common.bean.entity.message.MessageSender;
 import cn.enilu.flash.common.bean.entity.message.MessageTemplate;
+import cn.enilu.flash.common.dao.message.MessagesenderRepository;
+import cn.enilu.flash.common.dao.message.MessagetemplateRepository;
 import cn.enilu.flash.common.service.BaseService;
-import cn.enilu.flash.message.dao.MessagesenderRepository;
-import cn.enilu.flash.message.dao.MessagetemplateRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

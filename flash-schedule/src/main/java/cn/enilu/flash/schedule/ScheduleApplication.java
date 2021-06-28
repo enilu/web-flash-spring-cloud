@@ -6,22 +6,19 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.web.client.RestTemplate;
 import springfox.documentation.oas.annotations.EnableOpenApi;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 /**
- * descript
+ * ScheduleApplication
  *
  * @Author enilu
  * @Date 2021/6/27 22:18
@@ -36,10 +33,6 @@ import java.net.UnknownHostException;
 @EnableOpenApi
 public class ScheduleApplication {
     private static Logger logger = LoggerFactory.getLogger(ScheduleApplication.class);
-//    @Override
-//    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-//        return application.sources(ScheduleApplication.class);
-//    }
 
     public static void main(String[] args) throws UnknownHostException {
         ConfigurableApplicationContext application = SpringApplication.run(ScheduleApplication.class, args);
@@ -47,7 +40,7 @@ public class ScheduleApplication {
         String ip = InetAddress.getLocalHost().getHostAddress();
         String port = env.getProperty("server.port");
         String appName = env.getProperty("spring.application.name");
-        port = port == null ? "8080" : port;
+        port = port == null ? "8013" : port;
         String path = env.getProperty("server.servlet.context-path");
         path = path == null ? "" : path;
         logger.info("\n----------------------------------------------------------\n\t" +

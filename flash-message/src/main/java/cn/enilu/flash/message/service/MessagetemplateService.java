@@ -1,8 +1,8 @@
 package cn.enilu.flash.message.service;
 
 import cn.enilu.flash.common.bean.entity.message.MessageTemplate;
+import cn.enilu.flash.common.dao.message.MessagetemplateRepository;
 import cn.enilu.flash.common.service.BaseService;
-import cn.enilu.flash.message.dao.MessagetemplateRepository;
 import org.springframework.stereotype.Service;
 
 /**

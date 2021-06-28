@@ -1,13 +1,11 @@
 package cn.enilu.flash.message;
 
-import cn.enilu.flash.message.dao.BaseRepositoryFactoryBean;
+import cn.enilu.flash.common.dao.BaseRepositoryFactoryBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
@@ -29,16 +27,12 @@ import java.net.UnknownHostException;
 @EnableCaching
 @SpringBootApplication
 @ComponentScan(basePackages = "cn.enilu.flash")
-@EntityScan(basePackages = {"cn.enilu.flash.common.bean.entity","cn.enilu.flash.message.bean.entity"})
-@EnableJpaRepositories(basePackages = {"cn.enilu.flash.message.dao","cn.enilu.flash.common.dao"}, repositoryFactoryBeanClass = BaseRepositoryFactoryBean.class)
+@EntityScan(basePackages = {"cn.enilu.flash.common.bean.entity"})
+@EnableJpaRepositories(basePackages = {"cn.enilu.flash.common.dao"}, repositoryFactoryBeanClass = BaseRepositoryFactoryBean.class)
 @EnableJpaAuditing
 @EnableOpenApi
-public class MessageApplication extends SpringBootServletInitializer {
+public class MessageApplication {
     private static Logger logger = LoggerFactory.getLogger(MessageApplication.class);
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(MessageApplication.class);
-    }
 
     public static void main(String[] args) throws UnknownHostException {
         ConfigurableApplicationContext application = SpringApplication.run(MessageApplication.class, args);
@@ -46,7 +40,7 @@ public class MessageApplication extends SpringBootServletInitializer {
         String ip = InetAddress.getLocalHost().getHostAddress();
         String port = env.getProperty("server.port");
         String appName = env.getProperty("spring.application.name");
-        port = port == null ? "8080" : port;
+        port = port == null ? "8012" : port;
         String path = env.getProperty("server.servlet.context-path");
         path = path == null ? "" : path;
         logger.info("\n----------------------------------------------------------\n\t" +

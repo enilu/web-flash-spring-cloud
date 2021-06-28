@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cn.enilu</groupId>
-    <artifactId>web-flash</artifactId>
+    <artifactId>web-flash-spring-cloud</artifactId>
     <packaging>pom</packaging>
     <version>1.0</version>
     <modules>
@@ -15,7 +15,7 @@
         <module>flash-schedule</module>
         <module>flash-manage</module>
         <module>flash-common</module>
-        <module>flash-config</module>
+        <module>flash-config-server</module>
     </modules>
 
     <properties>
@@ -43,7 +43,7 @@
         <!--util libs-->
         <guava.version>20.0</guava.version>
         <mail.version>1.4.7</mail.version>
-        <httpcomponents.version>4.4.1</httpcomponents.version>
+        <!--<httpcomponents.version>4.4.1</httpcomponents.version>-->
         <jackson.version>2.12.0</jackson.version>
         <velocity.version>1.7</velocity.version>
         <quartz.version>2.2.1</quartz.version>
@@ -242,21 +242,21 @@
                 <version>${mail.version}</version>
             </dependency>
             <!-- Http Lib -->
-            <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpclient</artifactId>
-                <version>${httpcomponents.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpcore</artifactId>
-                <version>${httpcomponents.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpmime</artifactId>
-                <version>${httpcomponents.version}</version>
-            </dependency>
+            <!--<dependency>-->
+                <!--<groupId>org.apache.httpcomponents</groupId>-->
+                <!--<artifactId>httpclient</artifactId>-->
+                <!--<version>${httpcomponents.version}</version>-->
+            <!--</dependency>-->
+            <!--<dependency>-->
+                <!--<groupId>org.apache.httpcomponents</groupId>-->
+                <!--<artifactId>httpcore</artifactId>-->
+                <!--<version>${httpcomponents.version}</version>-->
+            <!--</dependency>-->
+            <!--<dependency>-->
+                <!--<groupId>org.apache.httpcomponents</groupId>-->
+                <!--<artifactId>httpmime</artifactId>-->
+                <!--<version>${httpcomponents.version}</version>-->
+            <!--</dependency>-->
 
             <!-- Http Lib End -->
             <dependency>

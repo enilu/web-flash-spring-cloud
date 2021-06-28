@@ -1,4 +1,4 @@
-package cn.enilu.flash.message.dao;
+package cn.enilu.flash.common.dao.message;
 
 
 import cn.enilu.flash.common.bean.entity.message.Message;
