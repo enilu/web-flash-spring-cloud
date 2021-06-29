@@ -1,5 +1,6 @@
 package cn.enilu.flash.manage.service.message;
 
+import cn.enilu.flash.common.bean.dto.MessageDto;
 import cn.enilu.flash.common.bean.entity.message.MessageSender;
 import cn.enilu.flash.common.bean.entity.message.MessageTemplate;
 import cn.enilu.flash.common.bean.vo.front.Ret;
@@ -20,18 +21,27 @@ public interface MessageService {
     @GetMapping(value = "/list")
     Ret queryMessagePage(@RequestParam("limit") Integer limit,
                          @RequestParam("page") Integer page,
-                         @RequestParam(name="tplCode",required = false) String tplCode,
-                         @RequestParam(name="startDate",required = false) String startDate,
-                         @RequestParam(name="endDate",required = false) String endDate);
+                         @RequestParam(value="tplCode",required = false) String tplCode,
+                         @RequestParam(value="startDate",required = false) String startDate,
+                         @RequestParam(value="endDate",required = false) String endDate);
     @DeleteMapping("/clear")
     void clearMessage() ;
 
 
+
+    @GetMapping("/sendTplEmail")
+    Ret sendTplEmail(@RequestBody MessageDto messageDto);
+    @GetMapping("/sendSimpleEmail")
+    Ret sendSimpleEmail(@RequestBody MessageDto messageDto);
+
+    @PostMapping("/sendSms")
+    Ret sendSms(@RequestBody MessageDto messageDto);
+
     @GetMapping(value = "/template/list")
-    Ret queryTemplatePage(@RequestParam Integer limit,
-                          @RequestParam Integer page,
-                          @RequestParam(name = "idMessageSender", required = false) Long idMessageSender,
-                          @RequestParam(name = "title", required = false) String title);
+    Ret queryTemplatePage(@RequestParam("limit") Integer limit,
+                          @RequestParam("page") Integer page,
+                          @RequestParam(value = "idMessageSender", required = false) Long idMessageSender,
+                          @RequestParam(value = "title", required = false) String title);
     @GetMapping("/template/queryAll")
     Ret queryAllTmplate() ;
     @PostMapping("/template")
@@ -43,8 +53,8 @@ public interface MessageService {
     @GetMapping(value = "/sender/list")
     Ret querySenderPage(@RequestParam("limit") Integer limit,
                         @RequestParam("page") Integer page,
-                        @RequestParam(name="name",required = false) String name,
-                        @RequestParam(name="className",required = false) String className);
+                        @RequestParam(value="name",required = false) String name,
+                        @RequestParam(value="className",required = false) String className);
     @GetMapping("/sender/queryAll")
     Ret queryAllSender() ;
     @PostMapping("/sender")

@@ -1,20 +1,18 @@
 package cn.enilu.flash.message.controller;
 
 import cn.enilu.flash.common.aop.BussinessLog;
+import cn.enilu.flash.common.bean.dto.MessageDto;
 import cn.enilu.flash.common.bean.entity.message.Message;
 import cn.enilu.flash.common.bean.vo.front.Rets;
-import cn.enilu.flash.common.factory.PageFactory;
 import cn.enilu.flash.common.bean.vo.query.SearchFilter;
+import cn.enilu.flash.common.factory.PageFactory;
 import cn.enilu.flash.common.utils.DateUtil;
-import cn.enilu.flash.common.utils.JsonUtil;
 import cn.enilu.flash.common.utils.StringUtil;
 import cn.enilu.flash.common.utils.factory.Page;
 import cn.enilu.flash.message.service.MessageService;
+import org.nutz.json.Json;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 
 /**
@@ -56,30 +54,23 @@ public class MessageController {
         return Rets.success();
     }
 
-    @PostMapping("/testSender")
-    @BussinessLog(value = "发送测试短信")
-    public Object testSend(@RequestParam String tplCode,@RequestParam String receiver,@RequestParam String params) {
-        LinkedHashMap map = JsonUtil.fromJson(LinkedHashMap.class,params);
-        messageService.sendSms(tplCode,receiver,map);
+    @PostMapping("/sendTplEmail")
+    public Object sendTplEmail(@RequestBody MessageDto messageDto){
+        System.out.println(Json.toJson(messageDto));
+        messageService.sendTplEmail(messageDto.getTplCode(),messageDto.getTo(),messageDto.getCc(),messageDto.getTitle(),messageDto.getDataParams());
         return Rets.success();
     }
-    @GetMapping("/sendTplEmail")
-    public Object sendTplEmail(String tplCode,  String to, String cc, String title, Map<String, Object> dataMap){
-        Message message = new Message();
-        message.setContent("测试发送");
-        return Rets.success(message);
-    }
-    @GetMapping("/sendSimpleEmail")
-    public Object sendSimpleEmail(String tplCode,  String to, String cc, String title, Map<String, Object> dataMap){
-        Message message = new Message();
-        message.setContent("测试发送");
-        return Rets.success(message);
+    @PostMapping("/sendSimpleEmail")
+    public Object sendSimpleEmail(@RequestBody MessageDto messageDto){
+        System.out.println(Json.toJson(messageDto));
+        messageService.sendSimpleEmail( messageDto.getTo(),messageDto.getCc(),messageDto.getTitle(),messageDto.getContent());
+        return Rets.success();
     }
 
-    @GetMapping("/sendSms")
-    public Object sendSms(String tplCode, String receiver, LinkedHashMap params){
-        Message message = new Message();
-        message.setContent("测试发送");
-        return Rets.success(message);
+    @PostMapping("/sendSms")
+    public Object sendSms(@RequestBody MessageDto messageDto){
+        System.out.println(Json.toJson(messageDto));
+        messageService.sendSms(messageDto.getTplCode(),messageDto.getTo(),messageDto.getDataParams());
+        return Rets.success();
     }
 }

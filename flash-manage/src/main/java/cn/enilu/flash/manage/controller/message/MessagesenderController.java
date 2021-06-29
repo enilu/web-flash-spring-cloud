@@ -5,7 +5,6 @@ import cn.enilu.flash.common.bean.entity.message.MessageSender;
 import cn.enilu.flash.manage.service.message.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
 
@@ -13,8 +12,6 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/message/sender")
 public class MessagesenderController {
-    @Autowired
-    private RestTemplate restTemplate;
 
     @Autowired
     private MessageService messageService;

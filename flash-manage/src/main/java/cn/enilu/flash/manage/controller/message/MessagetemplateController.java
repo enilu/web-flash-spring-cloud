@@ -5,10 +5,8 @@ import cn.enilu.flash.common.bean.entity.message.MessageTemplate;
 import cn.enilu.flash.common.bean.exception.ApplicationException;
 import cn.enilu.flash.common.enumeration.BizExceptionEnum;
 import cn.enilu.flash.manage.service.message.MessageService;
-import com.netflix.discovery.converters.Auto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
 
@@ -17,8 +15,6 @@ import javax.validation.Valid;
 public class MessagetemplateController {
 
     @Autowired
-    private RestTemplate restTemplate;
-    @Auto
     private MessageService messageService;
     @GetMapping(value = "/list")
     public Object list(@RequestParam Integer limit,
