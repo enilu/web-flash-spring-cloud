@@ -8,7 +8,7 @@ spring:
       config: classpath:ehcache.xml
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/webflashsc?useUnicode=true&characterEncoding=UTF8&useSSL=false
+    url: jdbc:mysql://webflashsc:3306/webflashsc?useUnicode=true&characterEncoding=UTF8&useSSL=false
     username: webflashsc
     password: webflash190602@ABC
   jpa:
