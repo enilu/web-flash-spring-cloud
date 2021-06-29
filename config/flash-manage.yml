@@ -11,7 +11,10 @@ hystrix:
           enabled: true
         isolation:
           thread:
-            timeoutInMilliseconds: 6000
+            timeoutInMilliseconds: 10000
+ribbon:
+  ReadTimeout: 10000
+  ConnectTimeout: 10000
 spring:
   application:
     name: flash-manage
