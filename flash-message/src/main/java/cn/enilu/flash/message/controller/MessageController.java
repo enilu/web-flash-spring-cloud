@@ -31,20 +31,22 @@ public class MessageController {
     private MessageService messageService;
 
     @GetMapping(value = "/list")
-    public Object list(@RequestParam(required = false) String tplCode,
+    public Object list(@RequestParam(required = true) Integer limit,
+                       @RequestParam(required = true) Integer page,
+                       @RequestParam(required = false) String tplCode,
                        @RequestParam(required = false) String startDate,
                        @RequestParam(required = false) String endDate) {
-        Page<Message> page = new PageFactory<Message>().defaultPage();
-        page.addFilter("tplCode", tplCode);
+        Page<Message> pageRet = new PageFactory<Message>().defaultPage();
+        pageRet.addFilter("tplCode", tplCode);
         if(StringUtil.isNotEmpty(startDate)) {
-            page.addFilter("createTime", SearchFilter.Operator.GTE, DateUtil.parse(startDate, "yyyyMMddHHmmss"));
+            pageRet.addFilter("createTime", SearchFilter.Operator.GTE, DateUtil.parse(startDate, "yyyyMMddHHmmss"));
         }
         if(StringUtil.isNotEmpty(endDate)) {
-            page.addFilter("createTime", SearchFilter.Operator.LTE, DateUtil.parse(endDate, "yyyyMMddHHmmss"));
+            pageRet.addFilter("createTime", SearchFilter.Operator.LTE, DateUtil.parse(endDate, "yyyyMMddHHmmss"));
         }
-        page = messageService.queryPage(page);
-        page.setRecords(page.getRecords());
-        return Rets.success(page);
+        pageRet = messageService.queryPage(pageRet);
+        pageRet.setRecords(pageRet.getRecords());
+        return Rets.success(pageRet);
     }
 
     @DeleteMapping("/clear")

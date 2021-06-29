@@ -27,28 +27,19 @@ public class MessageController {
     private RestTemplate restTemplate;
     @Autowired
     private MessageService messageService;
-    @GetMapping(value = "/list")
-    public Object list(@RequestParam(required = false) Integer limit,
-                       @RequestParam(required = false) Integer page,
+    @GetMapping(value = "/page")
+    public Object list(@RequestParam(required = true) Integer limit,
+                       @RequestParam(required = true) Integer page,
                        @RequestParam(required = false) String tplCode,
                        @RequestParam(required = false) String startDate,
                        @RequestParam(required = false) String endDate) {
         return messageService.list(limit,page,tplCode,startDate,endDate);
-//        Map<String, Object> params = Maps.newHashMap(
-//                "limit",limit,
-//                "page",page,
-//                "tplCode", tplCode,
-//                "startDate", startDate,
-//                "endDate", endDate
-//        );
-//        Object ret = restTemplate.getForObject("http://flash-message/message/list?limit={limit}&page={page}&tplCode={tplCode}&startDate={startDate}&endDate={endDate}", Object.class, params);
-//        return ret;
     }
 
     @DeleteMapping
     @BussinessLog(value = "清空所有历史消息")
     public Object clear() {
-        restTemplate.delete("http://flash-message/message/clear");
+        messageService.clear();
         return Rets.success();
     }
 

@@ -2,7 +2,9 @@ package cn.enilu.flash.manage.service.message;
 
 import cn.enilu.flash.common.bean.vo.front.Ret;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
@@ -14,11 +16,14 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 
 @FeignClient(value="flash-message")
+@RequestMapping(path = "/message")
 public interface MessageService {
     @GetMapping(value = "/list")
-    Ret list(@RequestParam(required = false) Integer limit,
-             @RequestParam(required = false) Integer page,
-             @RequestParam(required = false) String tplCode,
-             @RequestParam(required = false) String startDate,
-             @RequestParam(required = false) String endDate);
+    Ret list(@RequestParam("limit") Integer limit,
+             @RequestParam("page") Integer page,
+             @RequestParam(name="tplCode",required = false) String tplCode,
+             @RequestParam(name="startDate",required = false) String startDate,
+             @RequestParam(name="endDate",required = false) String endDate);
+    @DeleteMapping("/clear")
+    void clear() ;
 }
