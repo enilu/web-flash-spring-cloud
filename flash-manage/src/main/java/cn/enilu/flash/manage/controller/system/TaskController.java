@@ -39,7 +39,7 @@ public class TaskController extends BaseController {
         Map<String, Object> params = Maps.newHashMap(
                 "name", name
         );
-        Object ret = restTemplate.getForObject("http://flash-schedule/task/queryMessagePage?name={name}", Object.class, params);
+        Object ret = restTemplate.getForObject("http://flash-schedule/task/list?name={name}", Object.class, params);
         return ret;
 
     }

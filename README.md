@@ -46,4 +46,4 @@
 - Gitter: [Gitter channel](https://gitter.im/web-flash/community)
 - QQ:752844606
 
-[Change Log](http://enilu.gitee.io/web-flash/other/changeLog.html)
+[Change Log](http://webflash.enilu.cn/guide/other/changeLog.html)
