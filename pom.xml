@@ -9,13 +9,12 @@
     <packaging>pom</packaging>
     <version>1.0</version>
     <modules>
-        <module>flash-generator</module>
+        <module>flash-common</module>
+        <module>flash-config-server</module>
         <module>eureka-server</module>
         <module>flash-message</module>
         <module>flash-schedule</module>
         <module>flash-manage</module>
-        <module>flash-common</module>
-        <module>flash-config-server</module>
     </modules>
 
     <properties>
@@ -43,7 +42,6 @@
         <!--util libs-->
         <guava.version>20.0</guava.version>
         <mail.version>1.4.7</mail.version>
-        <!--<httpcomponents.version>4.4.1</httpcomponents.version>-->
         <jackson.version>2.12.0</jackson.version>
         <velocity.version>1.7</velocity.version>
         <quartz.version>2.2.1</quartz.version>
@@ -236,40 +234,7 @@
                 <artifactId>mail</artifactId>
                 <version>${mail.version}</version>
             </dependency>
-            <!-- Http Lib -->
-            <!--<dependency>-->
-            <!--<groupId>org.apache.httpcomponents</groupId>-->
-            <!--<artifactId>httpclient</artifactId>-->
-            <!--<version>${httpcomponents.version}</version>-->
-            <!--</dependency>-->
-            <!--<dependency>-->
-            <!--<groupId>org.apache.httpcomponents</groupId>-->
-            <!--<artifactId>httpcore</artifactId>-->
-            <!--<version>${httpcomponents.version}</version>-->
-            <!--</dependency>-->
-            <!--<dependency>-->
-            <!--<groupId>org.apache.httpcomponents</groupId>-->
-            <!--<artifactId>httpmime</artifactId>-->
-            <!--<version>${httpcomponents.version}</version>-->
-            <!--</dependency>-->
 
-            <!-- Http Lib End -->
-            <!--<dependency>-->
-            <!--<groupId>net.sourceforge.htmlunit</groupId>-->
-            <!--<artifactId>htmlunit</artifactId>-->
-            <!--<version>2.12</version>-->
-            <!--<exclusions>-->
-            <!--<exclusion>-->
-            <!--<groupId>xml-apis</groupId>-->
-            <!--<artifactId>xml-apis</artifactId>-->
-            <!--</exclusion>-->
-            <!--</exclusions>-->
-            <!--</dependency>-->
-            <!--<dependency>-->
-            <!--<groupId>commons-httpclient</groupId>-->
-            <!--<artifactId>commons-httpclient</artifactId>-->
-            <!--<version>3.1</version>-->
-            <!--</dependency>-->
             <dependency>
                 <groupId>org.nutz</groupId>
                 <artifactId>nutz</artifactId>
@@ -291,18 +256,6 @@
                 <artifactId>jackson-databind</artifactId>
                 <version>${jackson.version}</version>
             </dependency>
-
-            <!--<dependency>-->
-            <!--<groupId>eu.bitwalker</groupId>-->
-            <!--<artifactId>UserAgentUtils</artifactId>-->
-            <!--<version>1.21</version>-->
-            <!--</dependency>-->
-
-            <!--<dependency>-->
-            <!--<groupId>nl.bitwalker</groupId>-->
-            <!--<artifactId>UserAgentUtils</artifactId>-->
-            <!--<version>1.2.4</version>-->
-            <!--</dependency>-->
 
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -352,19 +305,13 @@
 
     <build>
         <plugins>
-
-            <!--<plugin>-->
-                <!--<groupId>org.springframework.boot</groupId>-->
-                <!--<artifactId>spring-boot-maven-plugin</artifactId>-->
-                <!--<version>2.5.1</version>-->
-            <!--</plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>${java_source_version}</source>
+                    <target>${java_target_version}</target>
                     <skip>false</skip>
                 </configuration>
             </plugin>
