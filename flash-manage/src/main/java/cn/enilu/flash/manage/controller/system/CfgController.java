@@ -101,7 +101,7 @@ public class CfgController extends BaseController {
 
     @DeleteMapping
     @BussinessLog(value = "删除参数", key = "id")
-    @RequiresPermissions(value = {"/cfg/delete"})
+    @RequiresPermissions(value = {"/cfg/deleteSender"})
     public Object remove(@RequestParam Long id) {
         logger.info("id:{}", id);
         if (id == null) {

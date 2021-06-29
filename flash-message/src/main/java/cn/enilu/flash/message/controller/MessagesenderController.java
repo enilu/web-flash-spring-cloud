@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/message/sender")
+@RequestMapping("/provider/message/sender")
 public class MessagesenderController {
     @Autowired
     private MessagesenderService messagesenderService;
@@ -52,9 +52,9 @@ public class MessagesenderController {
         return Rets.success();
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     @BussinessLog(value = "删除消息发送者", key = "id")
-    public Object remove(Long id) {
+    public Object remove(@PathVariable("id") Long id) {
 
         try {
             messagesenderService.delete(id);

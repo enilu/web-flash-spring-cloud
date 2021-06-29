@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function getList(params) {
     return request({
-        url: '/message/page',
+        url: '/message/list',
         method: 'get',
         params
     })

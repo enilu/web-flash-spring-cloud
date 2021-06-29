@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/message/template")
+@RequestMapping("/provider/message/template")
 public class MessagetemplateController {
     @Autowired
     private MessagetemplateService messagetemplateService;
@@ -50,9 +50,9 @@ public class MessagetemplateController {
         return Rets.success();
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     @BussinessLog(value = "删除消息模板", key = "id")
-    public Object remove(Long id) {
+    public Object remove(@PathVariable("id") Long id) {
         if (id == null) {
             throw new ApplicationException(BizExceptionEnum.REQUEST_NULL);
         }

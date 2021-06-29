@@ -21,25 +21,25 @@ import java.util.Map;
  * @Version 1.0
  */
 @RestController
-@RequestMapping("/message")
+@RequestMapping("/provider/message")
 public class MessageController {
     @Autowired
     private RestTemplate restTemplate;
     @Autowired
     private MessageService messageService;
-    @GetMapping(value = "/page")
+    @GetMapping(value = "/list")
     public Object list(@RequestParam(required = true) Integer limit,
                        @RequestParam(required = true) Integer page,
                        @RequestParam(required = false) String tplCode,
                        @RequestParam(required = false) String startDate,
                        @RequestParam(required = false) String endDate) {
-        return messageService.list(limit,page,tplCode,startDate,endDate);
+        return messageService.queryMessagePage(limit,page,tplCode,startDate,endDate);
     }
 
     @DeleteMapping
     @BussinessLog(value = "清空所有历史消息")
     public Object clear() {
-        messageService.clear();
+        messageService.clearMessage();
         return Rets.success();
     }
 
@@ -52,7 +52,7 @@ public class MessageController {
                 "receiver", receiver,
                 "params", params
         );
-        Object ret = restTemplate.getForObject("http://flash-message/message/list?tplCode={tplCode}&receiver={receiver}&params={params}", Object.class, paramsMap);
+        Object ret = restTemplate.getForObject("http://flash-message/message/queryMessagePage?tplCode={tplCode}&receiver={receiver}&params={params}", Object.class, paramsMap);
         return ret;
     }
     @GetMapping("/sendTplEmail")

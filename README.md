@@ -17,9 +17,9 @@
 - 导入idea或者eclipse
 - 创建数据库：web-flash
      ```sql
-        CREATE DATABASE IF NOT EXISTS webflashspringcloud DEFAULT CHARSET utf8 COLLATE utf8_general_ci; 
-        CREATE USER 'webflash'@'%' IDENTIFIED BY 'webflash190602@ABC';
-        GRANT ALL privileges ON webflash.* TO 'webflashspringcloud'@'%';
+        CREATE DATABASE IF NOT EXISTS webflashsc DEFAULT CHARSET utf8 COLLATE utf8_general_ci; 
+        CREATE USER 'webflashsc'@'%' IDENTIFIED BY 'webflash190602@ABC';
+        GRANT ALL privileges ON webflashsc.* TO 'webflashsc'@'%';
         flush privileges;
         ```    
 - 在开发环境中配置了系统启动后自动创建数据库和初始化数据，所以不需要开发人员手动初始化数据库
