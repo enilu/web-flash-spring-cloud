@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -34,6 +35,7 @@ import java.net.UnknownHostException;
 @EnableJpaRepositories(basePackages = {"cn.enilu.flash.common.dao"}, repositoryFactoryBeanClass = BaseRepositoryFactoryBean.class)
 @EnableJpaAuditing
 @EnableOpenApi
+@EnableFeignClients
 public class ManageApplication extends SpringBootServletInitializer {
     private static Logger logger = LoggerFactory.getLogger(ManageApplication.class);
     @Bean

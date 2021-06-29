@@ -4,6 +4,7 @@ import cn.enilu.flash.common.aop.BussinessLog;
 import cn.enilu.flash.common.bean.entity.message.Message;
 import cn.enilu.flash.common.bean.vo.front.Rets;
 import cn.enilu.flash.common.utils.Maps;
+import cn.enilu.flash.manage.service.message.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -24,22 +25,24 @@ import java.util.Map;
 public class MessageController {
     @Autowired
     private RestTemplate restTemplate;
+    @Autowired
+    private MessageService messageService;
     @GetMapping(value = "/list")
     public Object list(@RequestParam(required = false) Integer limit,
                        @RequestParam(required = false) Integer page,
                        @RequestParam(required = false) String tplCode,
                        @RequestParam(required = false) String startDate,
                        @RequestParam(required = false) String endDate) {
-
-        Map<String, Object> params = Maps.newHashMap(
-                "limit",limit,
-                "page",page,
-                "tplCode", tplCode,
-                "startDate", startDate,
-                "endDate", endDate
-        );
-        Object ret = restTemplate.getForObject("http://flash-message/message/list?limit={limit}&page={page}&tplCode={tplCode}&startDate={startDate}&endDate={endDate}", Object.class, params);
-        return ret;
+        return messageService.list(limit,page,tplCode,startDate,endDate);
+//        Map<String, Object> params = Maps.newHashMap(
+//                "limit",limit,
+//                "page",page,
+//                "tplCode", tplCode,
+//                "startDate", startDate,
+//                "endDate", endDate
+//        );
+//        Object ret = restTemplate.getForObject("http://flash-message/message/list?limit={limit}&page={page}&tplCode={tplCode}&startDate={startDate}&endDate={endDate}", Object.class, params);
+//        return ret;
     }
 
     @DeleteMapping

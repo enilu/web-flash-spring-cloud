@@ -60,7 +60,6 @@ public class DruidConfiguration {
 
     @Bean
     @RefreshScope
-
     @ConfigurationProperties(prefix = "spring.datasource")
     public DataSource druid(){
         return new DruidDataSource();

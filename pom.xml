@@ -101,11 +101,6 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-                <version>2.0.2.RELEASE</version>
-            </dependency>
-            <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>${spring.boot.version}</version>
@@ -259,22 +254,22 @@
             <!--</dependency>-->
 
             <!-- Http Lib End -->
-            <dependency>
-                <groupId>net.sourceforge.htmlunit</groupId>
-                <artifactId>htmlunit</artifactId>
-                <version>2.12</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>xml-apis</groupId>
-                        <artifactId>xml-apis</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>commons-httpclient</groupId>
-                <artifactId>commons-httpclient</artifactId>
-                <version>3.1</version>
-            </dependency>
+            <!--<dependency>-->
+                <!--<groupId>net.sourceforge.htmlunit</groupId>-->
+                <!--<artifactId>htmlunit</artifactId>-->
+                <!--<version>2.12</version>-->
+                <!--<exclusions>-->
+                    <!--<exclusion>-->
+                        <!--<groupId>xml-apis</groupId>-->
+                        <!--<artifactId>xml-apis</artifactId>-->
+                    <!--</exclusion>-->
+                <!--</exclusions>-->
+            <!--</dependency>-->
+            <!--<dependency>-->
+                <!--<groupId>commons-httpclient</groupId>-->
+                <!--<artifactId>commons-httpclient</artifactId>-->
+                <!--<version>3.1</version>-->
+            <!--</dependency>-->
             <dependency>
                 <groupId>org.nutz</groupId>
                 <artifactId>nutz</artifactId>
@@ -297,17 +292,17 @@
                 <version>${jackson.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>eu.bitwalker</groupId>
-                <artifactId>UserAgentUtils</artifactId>
-                <version>1.21</version>
-            </dependency>
+            <!--<dependency>-->
+                <!--<groupId>eu.bitwalker</groupId>-->
+                <!--<artifactId>UserAgentUtils</artifactId>-->
+                <!--<version>1.21</version>-->
+            <!--</dependency>-->
 
-            <dependency>
-                <groupId>nl.bitwalker</groupId>
-                <artifactId>UserAgentUtils</artifactId>
-                <version>1.2.4</version>
-            </dependency>
+            <!--<dependency>-->
+                <!--<groupId>nl.bitwalker</groupId>-->
+                <!--<artifactId>UserAgentUtils</artifactId>-->
+                <!--<version>1.2.4</version>-->
+            <!--</dependency>-->
 
             <dependency>
                 <groupId>org.springframework.boot</groupId>
