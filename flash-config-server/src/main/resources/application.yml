@@ -11,7 +11,7 @@ spring:
           force-pull: true
           search-paths: config
           username: enilu
-          password: sheseerzuo
+          password: 123456
           refresh-rate: 15
           default-label: main
 eureka:
