@@ -36,7 +36,7 @@
 
 
 ## 在线文档
-- [http://webflash.enilu.cn](http://webflash.enilu.cn)
+- [web-flash（非spring cloud版本）](http://webflash.enilu.cn)
 
 ## 交流
 - [Issues](https://gitee.com/enilu/web-flash-spring-cloud/issues/new)
