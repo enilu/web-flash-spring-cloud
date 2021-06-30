@@ -39,7 +39,4 @@
 - [http://webflash.enilu.cn](http://webflash.enilu.cn)
 
 ## 交流
-- Gitter: [Gitter channel](https://gitter.im/web-flash/community)
-- QQ:752844606
-
-[Change Log](http://webflash.enilu.cn/guide/other/changeLog.html)
+- [Issues](https://gitee.com/enilu/web-flash-spring-cloud/issues/new)
