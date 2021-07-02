@@ -1,0 +1,82 @@
+server:
+  port: 8011
+feigh:
+  hystrix:
+    enabled: true
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000
+ribbon:
+  ReadTimeout: 10000
+  ConnectTimeout: 10000
+spring:
+  application:
+    name: flash-manage
+  cache:
+    ehcache:
+      config: classpath:ehcache.xml
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://webflashsc:3306/webflashsc?useUnicode=true&characterEncoding=UTF8&useSSL=false
+    username: webflashsc
+    password: webflash190602@ABC
+    druid:
+      web-stat-filter:
+        enabled: true
+        url-pattern: /*
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /*
+        reset-enable: false
+        login-username: druiduser
+        login-password: druidpwd
+        allow: 127.0.0.1
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+  mail:
+    host: smtp.qq.com
+    username: eniluzt@qq.com
+    password: ntybcoiiomozbjhc
+    port: 465
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            enabled: true
+          socketFactory:
+            port: 465
+            class: javax.net.ssl.SSLSocketFactory
+            fallback: false
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info,health,heapdump,beans,trace
+info:
+  app:
+    name: flash-manage
+    version: 1.0
+jwt:
+  token:
+    expire:
+      time: 30

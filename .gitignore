@@ -1,0 +1,15 @@
+*.iml
+**/target
+**/node_modules
+
+.idea
+package-lock.json
+docs/.vuepress/dist
+**/dist
+.classpath
+.factorypath
+.vscode
+.settings
+.project
+flash-core/
+flash-api/

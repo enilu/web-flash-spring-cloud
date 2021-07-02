@@ -1,0 +1,20 @@
+server:
+  port: 8010
+spring:
+  application:
+    name: flash-config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://gitee.com/enilu/web-flash-spring-cloud.git
+          force-pull: true
+          search-paths: config
+          username: enilu
+          password: 123456
+          refresh-rate: 15
+          default-label: main
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
