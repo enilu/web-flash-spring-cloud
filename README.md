@@ -1,5 +1,5 @@
 # web-flash(spring cloud版)
-
+web-flash非微服务版本[web-flash](https://gitee.com/enilu/web-flash)
 ## 模块
 - eureka-server 服务注册中心
 - flash-common 基础公共模块
