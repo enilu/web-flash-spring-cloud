@@ -22,6 +22,7 @@ import java.util.List;
  */
 @Service
 public class RoleService extends BaseService<Role, Long, RoleRepository> {
+
     @Autowired
     private RoleRepository roleRepository;
     @Autowired

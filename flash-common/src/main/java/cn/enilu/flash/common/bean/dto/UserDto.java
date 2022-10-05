@@ -1,7 +1,7 @@
 package cn.enilu.flash.common.bean.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -25,7 +25,7 @@ public class UserDto {
 	private String salt;
 	@NotBlank(message = "姓名不能为空")
 	private String name;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
 	private Date birthday;
 	private Integer sex;
 	private String email;

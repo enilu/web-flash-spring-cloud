@@ -65,7 +65,7 @@ public class UserController extends BaseController {
     @PostMapping
     @BussinessLog(value = "编辑账号", key = "name")
     @RequiresPermissions(value = {Permission.USER_EDIT})
-    public Object save(@Valid UserDto user, BindingResult result) {
+    public Object save(@RequestBody @Valid UserDto user, BindingResult result) {
         if (user.getId() == null) {
             // 判断账号是否重复
             User theUser = userService.findByAccount(user.getAccount());
@@ -91,7 +91,7 @@ public class UserController extends BaseController {
         if (userId == null) {
             throw new ApplicationException(BizExceptionEnum.REQUEST_NULL);
         }
-        if (userId.intValue() <= 2) {
+        if (userId.intValue() <= 3) {
             return Rets.failure("不能删除初始用户");
         }
         User user = userService.get(userId);
@@ -109,7 +109,7 @@ public class UserController extends BaseController {
         }
         //不能修改超级管理员
         if (userId.intValue() == Constants.ADMIN_ID.intValue()) {
-            throw new ApplicationException(BizExceptionEnum.CANT_CHANGE_ADMIN);
+            return Rets.failure("不能修改超级管理员得角色");
         }
         User user = userService.get(userId);
         user.setRoleid(roleIds);
@@ -124,7 +124,7 @@ public class UserController extends BaseController {
         if (userId == null) {
             throw new ApplicationException(BizExceptionEnum.REQUEST_NULL);
         }
-        if (userId.intValue() <= 2) {
+        if (userId.intValue() <= 3) {
             return Rets.failure("不能冻结初始用户");
         }
         User user = userService.get(userId);

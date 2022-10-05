@@ -31,7 +31,7 @@ public class MessagesenderController {
 
     @PostMapping
     @BussinessLog(value = "编辑消息发送者", key = "name")
-    public Object save(@ModelAttribute @Valid MessageSender messageSender) {
+    public Object save(@RequestBody @Valid MessageSender messageSender) {
         return messageService.saveSender(messageSender);
 
     }

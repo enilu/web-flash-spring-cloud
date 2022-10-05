@@ -2,7 +2,7 @@ spring:
   cloud:
     config:
       name: flash-schedule
-      label: master
+      label: main
       discovery:
         enabled: true
         service-id: flash-config-server

@@ -124,7 +124,7 @@ public class ConstantFactory implements IConstantFactory {
      */
     @Override
     public String getSingleRoleName(Long roleId) {
-        if (0 == roleId) {
+        if (roleId==null|| roleId.intValue()==0) {
             return "--";
         }
         Role roleObj = getRole(roleId);
@@ -144,7 +144,7 @@ public class ConstantFactory implements IConstantFactory {
         }
         Role roleObj = getRole(roleId);
         if (StringUtil.isNotNullOrEmpty(roleObj) && StringUtil.isNotEmpty(roleObj.getName())) {
-            return roleObj.getTips();
+            return roleObj.getCode();
         }
         return "";
     }

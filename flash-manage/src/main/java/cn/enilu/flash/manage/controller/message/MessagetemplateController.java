@@ -22,18 +22,11 @@ public class MessagetemplateController {
                        @RequestParam(name = "idMessageSender", required = false) Long idMessageSender,
                        @RequestParam(name = "title", required = false) String title) {
         return messageService.queryTemplatePage(limit,page,idMessageSender,title);
-//        Map<String, Object> params = Maps.newHashMap(
-//                "limit",limit,
-//                "page",page,
-//                "idMessageSender", idMessageSender,
-//                "title", title
-//        );
-//        return  restTemplate.getForObject("http://flash-message/message/template/list?limit={limit}&page={page}&idMessageSender={idMessageSender}&title={title}", Ret.class, params);
     }
 
     @PostMapping
     @BussinessLog(value = "编辑消息模板", key = "name")
-    public Object save(@ModelAttribute @Valid MessageTemplate messageTemplate) {
+    public Object save(@RequestBody @Valid MessageTemplate messageTemplate) {
         return messageService.saveTemplate(messageTemplate);
 //        return restTemplate.postForObject("http://flash-message/message/template", messageTemplate, Ret.class);
     }

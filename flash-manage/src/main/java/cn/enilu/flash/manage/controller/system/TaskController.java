@@ -50,7 +50,7 @@ public class TaskController extends BaseController {
     @PostMapping
     @BussinessLog(value = "编辑定时任务", key = "name")
     @RequiresPermissions(value = {Permission.TASK_EDIT})
-    public Object add(@ModelAttribute @Valid Task task) {
+    public Object add(@RequestBody @Valid Task task) {
         Object ret = restTemplate.postForObject("http://flash-schedule/task", task, Ret.class);
         return ret;
 

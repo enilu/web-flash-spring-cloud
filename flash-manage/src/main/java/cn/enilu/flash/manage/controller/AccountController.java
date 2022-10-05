@@ -1,17 +1,17 @@
 package cn.enilu.flash.manage.controller;
 
+import cn.enilu.flash.common.bean.dto.LoginDto;
 import cn.enilu.flash.common.bean.entity.system.User;
 import cn.enilu.flash.common.bean.state.ManagerStatus;
 import cn.enilu.flash.common.bean.vo.front.Rets;
+import cn.enilu.flash.common.bean.vo.node.RouterMenu;
 import cn.enilu.flash.common.cache.TokenCache;
 import cn.enilu.flash.common.log.LogManager;
 import cn.enilu.flash.common.log.LogTaskFactory;
 import cn.enilu.flash.common.security.ShiroFactroy;
 import cn.enilu.flash.common.security.ShiroUser;
-import cn.enilu.flash.common.utils.HttpUtil;
-import cn.enilu.flash.common.utils.MD5;
-import cn.enilu.flash.common.utils.Maps;
-import cn.enilu.flash.common.utils.StringUtil;
+import cn.enilu.flash.common.service.system.MenuService;
+import cn.enilu.flash.common.utils.*;
 import cn.enilu.flash.manage.service.UserService;
 import cn.enilu.flash.manage.utils.ApiConstants;
 import org.nutz.mapl.Mapl;
@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -38,6 +39,8 @@ public class AccountController extends BaseController {
     @Autowired
     private UserService userService;
     @Autowired
+    private MenuService menuService;
+    @Autowired
     private TokenCache tokenCache;
 
     /**
@@ -46,22 +49,23 @@ public class AccountController extends BaseController {
      * 2，验证密码错误<br>
      * 3，登录成功
      *
-     * @param userName
-     * @param password
+     * @param loginDto
      * @return
      */
     @PostMapping(value = "/login")
-    public Object login(@RequestParam("username") String userName,
-                        @RequestParam("password") String password) {
+    public Object login(@RequestBody LoginDto loginDto) {
         try {
             //1,
-            User user = userService.findByAccount(userName);
+            String password = loginDto.getPassword();
+            String userName = loginDto.getUsername();
+            password = CryptUtil.desEncrypt(password);
+            User user = userService.findByAccountForLogin(userName);
             if (user == null) {
                 return Rets.failure("用户名或密码错误");
             }
-            if(user.getStatus() == ManagerStatus.FREEZED.getCode()){
+            if (user.getStatus() == ManagerStatus.FREEZED.getCode()) {
                 return Rets.failure("用户已冻结");
-            }else if(user.getStatus() == ManagerStatus.DELETED.getCode()){
+            } else if (user.getStatus() == ManagerStatus.DELETED.getCode()) {
                 return Rets.failure("用户已删除");
             }
             String passwdMd5 = MD5.md5(password, user.getSalt());
@@ -73,7 +77,7 @@ public class AccountController extends BaseController {
                 return Rets.failure("该用户未配置权限");
             }
             String token = userService.loginForToken(user);
-            ShiroFactroy.me().shiroUser(token,user);
+            ShiroFactroy.me().shiroUser(token, user);
             Map<String, String> result = new HashMap<>(1);
             result.put("token", token);
             LogManager.me().executeLog(LogTaskFactory.loginLog(user.getId(), HttpUtil.getIp()));
@@ -95,17 +99,19 @@ public class AccountController extends BaseController {
         }
         if (idUser != null) {
             User user = userService.get(idUser);
-            if(user==null){
+            if (user == null) {
                 //该用户可能被删除
                 return Rets.expire();
-
             }
             if (StringUtil.isEmpty(user.getRoleid())) {
                 return Rets.failure("该用户未配置权限");
             }
             ShiroUser shiroUser = tokenCache.getUser(getToken());
             Map map = Maps.newHashMap("name", user.getName(), "role", "admin", "roles", shiroUser.getRoleCodes());
+            List<RouterMenu> list = menuService.getSideBarMenus(shiroUser.getRoleList());
+            map.put("menus", list);
             map.put("permissions", shiroUser.getUrls());
+
             Map profile = (Map) Mapl.toMaplist(user);
             profile.put("dept", shiroUser.getDeptName());
             profile.put("roles", shiroUser.getRoleNames());
