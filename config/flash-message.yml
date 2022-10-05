@@ -18,9 +18,9 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
   mail:
-    host: smtp.qq.com
-    username: eniluzt@qq.com
-    password: ntybcoiiomozbjhc
+    host: smtp.126.com
+    username: enilu@126.com
+    password: iamtestMAIL123
     port: 465
     protocol: smtp
     properties:
