@@ -20,7 +20,7 @@ spring:
   mail:
     host: smtp.126.com
     username: enilu@126.com
-    password: iamtestMAIL123
+    password: NETLKXMXDHHMQWLQ
     port: 465
     protocol: smtp
     properties:
