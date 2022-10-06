@@ -36,7 +36,7 @@
 - 确保开发工具下载了lombok插件
 - 按照顺序启动一下各个微服务
     - eureka-server
-    - flash-config-server:启动之前修改配置文件中配置文件使用的git仓库地址和账号密码
+    - flash-config-server:启动之前修改配置文件中配置文件使用的git仓库地址，账号，密码，分支(默认为main)等信息
     - flash-message
     - flash-schedule
     - flash-manage

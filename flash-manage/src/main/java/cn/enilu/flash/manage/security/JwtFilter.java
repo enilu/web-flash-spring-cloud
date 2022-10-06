@@ -4,8 +4,8 @@ import cn.enilu.flash.common.bean.entity.system.User;
 import cn.enilu.flash.common.bean.vo.SpringContextHolder;
 import cn.enilu.flash.common.security.JwtToken;
 import cn.enilu.flash.common.security.JwtUtil;
+import cn.enilu.flash.common.service.system.UserService;
 import cn.enilu.flash.common.utils.HttpUtil;
-import cn.enilu.flash.manage.service.UserService;
 import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -81,6 +81,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
                 return false;
             }
         }
+        response401(request, response);
         return false;
     }
 

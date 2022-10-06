@@ -3,6 +3,7 @@ package cn.enilu.flash.manage.controller;
 import cn.enilu.flash.common.bean.dto.LoginDto;
 import cn.enilu.flash.common.bean.entity.system.User;
 import cn.enilu.flash.common.bean.state.ManagerStatus;
+import cn.enilu.flash.common.bean.vo.front.Ret;
 import cn.enilu.flash.common.bean.vo.front.Rets;
 import cn.enilu.flash.common.bean.vo.node.RouterMenu;
 import cn.enilu.flash.common.cache.TokenCache;
@@ -11,9 +12,13 @@ import cn.enilu.flash.common.log.LogTaskFactory;
 import cn.enilu.flash.common.security.ShiroFactroy;
 import cn.enilu.flash.common.security.ShiroUser;
 import cn.enilu.flash.common.service.system.MenuService;
+import cn.enilu.flash.common.service.system.QrcodeService;
+import cn.enilu.flash.common.service.system.UserService;
 import cn.enilu.flash.common.utils.*;
-import cn.enilu.flash.manage.service.UserService;
 import cn.enilu.flash.manage.utils.ApiConstants;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import org.nutz.json.Json;
 import org.nutz.mapl.Mapl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +26,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +50,8 @@ public class AccountController extends BaseController {
     private MenuService menuService;
     @Autowired
     private TokenCache tokenCache;
+    @Autowired
+    QrcodeService qrcodeService;
 
     /**
      * 用户登录<br>
@@ -147,6 +157,88 @@ public class AccountController extends BaseController {
             logger.error(e.getMessage(), e);
         }
         return Rets.failure("更改密码失败");
+    }
+    /**
+     * 生成登录二维码（PC端调用）
+     *
+     * @param response
+     */
+    @GetMapping("/qrcode/generate")
+    public void generateQrcode(@RequestParam("uuid") String uuid,
+                               HttpServletResponse response) {
+        BitMatrix bitMatrix = qrcodeService.createQrcode(uuid);
+
+        response.setContentType("image/jpg");
+        response.setHeader("Pragma", "no-cache");
+        response.setHeader("Cache-Control", "no-cache");
+        response.setDateHeader("Expires", 0);
+
+        OutputStream stream = null;
+        try {
+            stream = response.getOutputStream();
+            MatrixToImageWriter.writeToStream(bitMatrix, "jpg", stream);
+        } catch (IOException e) {
+            logger.error("generate QrCode error", e);
+        } finally {
+            try {
+                stream.close();
+            } catch (IOException e) {
+                logger.error("close stream error", e);
+            }
+        }
+
+    }
+
+    /**
+     * 获取二维码扫码结果(PC端调用）
+     *
+     * @return
+     */
+    @GetMapping("/qrcode/getRet")
+    public Ret getQrcodeStatus(@RequestParam("uuid") String uuid) {
+        String ret = qrcodeService.getCrcodeStatus(uuid);
+        if(QrcodeService.INVALID.equals(ret)){
+            return Rets.success(Maps.newHashMap("status",ret,"msg","二维码已过期"));
+        }
+        if ( QrcodeService.CANCEL.equals(ret)) {
+            return Rets.success(Maps.newHashMap("status",ret,"msg","已取消登录"));
+
+        }
+        if ( QrcodeService.UNDO.equals(ret)) {
+            return Rets.success(Maps.newHashMap("status",ret,"msg","待扫描"));
+        }
+        Map map = Json.fromJson(Map.class,ret);
+        return Rets.success(map);
+    }
+
+    /**
+     * @param phone 手机号
+     * @param qrcode  二维码值
+     * @param confirm 是否确认登录：1:是,0:否
+     * @return
+     */
+    @PostMapping("/qrcode/login")
+    public Ret qrLogin(@RequestParam("phone") String phone,
+                       @RequestParam("qrcode") String qrcode,
+                       @RequestParam("confirm") String confirm
+    ) {
+        String qrstatus = qrcodeService.getCrcodeStatus(qrcode);
+        if (QrcodeService.INVALID.equals(qrstatus)) {
+            return Rets.failure("二维码已过期");
+        }
+        if (QrcodeService.SUCCESS.equals(qrstatus) || QrcodeService.CANCEL.equals(qrstatus)) {
+            return Rets.failure("二维码已被他人使用");
+        }
+        if(QrcodeService.UNDO.equals(qrstatus)) {
+            qrcodeService.login(phone, qrcode, confirm);
+            return Rets.success();
+        }  else if (QrcodeService.INVALID.equals(qrstatus)) {
+            return Rets.failure("二维码已过期");
+        }else{
+            return Rets.failure("无效的二维码");
+        }
+
+
     }
 
 }

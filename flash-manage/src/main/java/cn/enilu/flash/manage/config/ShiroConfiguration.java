@@ -83,6 +83,7 @@ public class ShiroConfiguration {
         filterRuleMap.put("/druid/**", "anon");
         //登录登出不拦截
         filterRuleMap.put("/account/login", "anon");
+        filterRuleMap.put("/account/qrcode/**", "anon");
         filterRuleMap.put("/logout", "logout");
         //H5前端不拦截
         filterRuleMap.put("/offcialsite/**", "anon");

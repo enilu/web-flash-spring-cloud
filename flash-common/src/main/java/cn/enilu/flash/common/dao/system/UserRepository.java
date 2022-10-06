@@ -16,4 +16,6 @@ public interface UserRepository extends BaseRepository<User, Long> {
 
     @Query(value = "select * from t_sys_user a where a.id = 1 for update", nativeQuery = true)
     User findForUpdate();
+
+    User findByPhone(String phone);
 }
